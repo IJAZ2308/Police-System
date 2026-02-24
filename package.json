@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.8",
+    "@supabase/supabase-js": "^2.95.3",
+    "axios": "^1.13.5",
+    "react-router-dom": "^7.12.0"
+  }
+}
