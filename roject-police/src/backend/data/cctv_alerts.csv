@@ -1,0 +1,101 @@
+alert_id,zone_id,criminal_id,alert_type,alert_time,confidence_score,status
+518302,78054,558678,Weapon Detected,2025-09-22,0.87,Pending
+467914,73050,953350,Face Match,2025-09-30,0.91,Pending
+558117,66152,127404,Face Match,2025-09-12,0.7,False Positive
+931193,15144,414467,Face Match,2025-10-20,0.64,Verified
+247459,55587,975423,Weapon Detected,2026-01-26,0.74,Verified
+640726,73718,558678,Face Match,2025-11-22,0.83,False Positive
+653990,44470,366558,Suspicious Activity,2025-03-08,0.61,Verified
+340567,45338,230121,Face Match,2026-02-01,0.69,Pending
+688963,16407,783154,Suspicious Activity,2025-03-13,0.74,Pending
+546756,25863,297756,Weapon Detected,2025-03-30,0.89,Pending
+508242,44951,738687,Face Match,2025-04-16,0.88,Pending
+943602,21295,287129,Suspicious Activity,2025-10-10,0.75,Verified
+487047,39501,898492,Suspicious Activity,2025-10-22,0.71,False Positive
+787755,42647,254338,Suspicious Activity,2025-05-17,0.77,Verified
+588742,75295,848623,Suspicious Activity,2025-07-09,0.91,False Positive
+233658,53467,814932,Face Match,2025-11-27,0.87,Pending
+855867,99348,340863,Face Match,2025-09-23,0.79,False Positive
+497395,43682,668831,Weapon Detected,2025-03-12,0.95,Verified
+898124,49105,254338,Weapon Detected,2025-08-30,0.96,Verified
+512216,15933,631486,Face Match,2025-07-13,0.76,False Positive
+599423,29621,348748,Weapon Detected,2025-12-07,0.8,Pending
+876552,84446,839784,Weapon Detected,2025-05-22,0.87,False Positive
+737136,81568,992860,Weapon Detected,2025-07-08,0.66,Verified
+678499,98749,348748,Face Match,2025-10-05,0.72,False Positive
+214208,15944,957754,Weapon Detected,2025-09-08,0.83,Verified
+388654,90910,340863,Suspicious Activity,2025-07-28,0.89,False Positive
+661414,36765,849463,Weapon Detected,2025-07-27,0.91,Verified
+577989,48886,617453,Weapon Detected,2025-11-30,0.78,Pending
+683882,93741,680860,Face Match,2025-04-11,0.9,Verified
+515390,24244,682378,Suspicious Activity,2025-11-25,0.96,False Positive
+349402,37150,940023,Face Match,2025-02-26,0.89,Pending
+660508,12924,953350,Weapon Detected,2025-12-28,0.98,Pending
+791036,38157,867514,Weapon Detected,2025-12-14,0.71,False Positive
+320925,51247,911074,Weapon Detected,2025-12-01,0.93,Verified
+350689,92175,578093,Suspicious Activity,2025-11-16,0.98,Pending
+601181,11673,554572,Suspicious Activity,2025-03-07,0.9,Pending
+504738,56935,808811,Suspicious Activity,2025-09-18,0.95,Pending
+333318,42808,658787,Suspicious Activity,2025-08-08,0.7,Verified
+463810,22364,522646,Weapon Detected,2025-11-29,0.82,Pending
+575669,28966,617453,Suspicious Activity,2025-04-19,0.79,Verified
+792430,93422,814932,Suspicious Activity,2025-07-01,0.96,Verified
+291864,23675,852147,Suspicious Activity,2025-04-10,0.97,Verified
+338317,65207,521250,Suspicious Activity,2026-02-19,0.85,Verified
+793069,58478,403935,Weapon Detected,2025-07-07,0.77,Verified
+233607,53683,780046,Weapon Detected,2025-07-18,0.92,Pending
+828016,94185,403935,Face Match,2025-06-12,0.83,Verified
+345918,87825,904213,Weapon Detected,2025-12-07,0.88,False Positive
+934320,57424,522646,Face Match,2026-01-22,0.64,Verified
+522868,67469,848623,Weapon Detected,2025-06-25,0.99,Pending
+974609,99978,872497,Suspicious Activity,2025-11-03,0.63,False Positive
+320542,83785,272705,Face Match,2025-05-28,0.87,Pending
+652383,15680,710988,Face Match,2025-03-30,0.94,Verified
+624026,79019,529594,Face Match,2025-07-15,0.99,False Positive
+406473,79891,268214,Weapon Detected,2025-06-13,0.91,Verified
+972633,90769,631746,Suspicious Activity,2026-01-01,0.84,False Positive
+656400,34714,719052,Face Match,2025-04-06,0.64,Pending
+448492,42156,161047,Suspicious Activity,2025-05-22,0.99,Pending
+236893,60668,184047,Face Match,2025-07-05,0.76,Pending
+399152,64514,364799,Suspicious Activity,2025-11-05,0.84,False Positive
+469320,49886,364799,Face Match,2025-09-15,0.6,Verified
+872495,45586,668831,Suspicious Activity,2025-11-12,0.89,False Positive
+322555,36281,898492,Face Match,2026-01-04,0.81,False Positive
+313637,35486,839784,Weapon Detected,2025-09-30,0.8,Verified
+531996,26721,314418,Face Match,2026-01-05,0.72,Pending
+806853,59143,998087,Weapon Detected,2026-01-01,0.82,Pending
+702940,42364,658787,Weapon Detected,2025-03-31,0.78,Pending
+726382,49436,414467,Face Match,2025-05-26,0.61,False Positive
+497067,77601,930814,Weapon Detected,2025-03-27,0.66,Pending
+294804,84226,653836,Suspicious Activity,2025-03-15,0.78,Pending
+796297,84465,268214,Weapon Detected,2025-12-23,0.77,False Positive
+846766,62029,998087,Suspicious Activity,2026-02-07,0.8,False Positive
+308136,23960,668831,Suspicious Activity,2025-04-01,0.95,Verified
+477352,81533,814932,Suspicious Activity,2025-05-27,0.88,False Positive
+490485,84461,719052,Face Match,2026-02-02,0.99,False Positive
+978266,45177,252745,Suspicious Activity,2025-09-04,0.61,Verified
+921996,14264,268214,Weapon Detected,2025-03-29,0.83,Verified
+765438,40164,911074,Face Match,2025-04-20,0.74,Pending
+512168,66705,161047,Suspicious Activity,2025-07-09,0.76,Pending
+297968,51848,658787,Weapon Detected,2025-03-11,0.93,Pending
+487626,14353,988534,Suspicious Activity,2025-05-24,0.65,Pending
+270718,74316,442630,Weapon Detected,2026-02-13,0.66,False Positive
+453204,60116,164952,Suspicious Activity,2026-01-09,0.62,False Positive
+231877,51009,783154,Weapon Detected,2025-06-01,0.74,False Positive
+237701,98158,155005,Weapon Detected,2025-06-11,0.97,Pending
+252050,16512,215311,Weapon Detected,2025-11-17,0.83,Verified
+898788,33623,756745,Suspicious Activity,2025-10-21,0.62,False Positive
+544298,76880,463860,Suspicious Activity,2026-02-17,0.75,False Positive
+437048,97233,389175,Weapon Detected,2025-08-24,0.93,Pending
+616720,59707,522646,Suspicious Activity,2025-09-03,0.9,Verified
+493446,45856,852147,Face Match,2026-01-06,0.71,Pending
+913511,58638,105919,Face Match,2025-09-26,0.86,Pending
+862963,94007,127404,Suspicious Activity,2025-10-01,0.84,False Positive
+421001,90056,769469,Suspicious Activity,2026-01-07,0.68,Verified
+844679,49468,581850,Weapon Detected,2025-09-03,0.87,Verified
+810403,47400,301998,Weapon Detected,2025-09-22,0.93,False Positive
+915349,17294,414467,Face Match,2025-03-09,0.63,False Positive
+830382,48201,340863,Suspicious Activity,2025-08-10,0.92,Verified
+728904,22296,754177,Weapon Detected,2025-12-20,0.8,Pending
+261539,21034,403935,Face Match,2025-09-05,0.93,Verified
+262337,51985,839784,Weapon Detected,2025-11-13,0.72,Pending

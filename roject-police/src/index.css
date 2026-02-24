@@ -1,0 +1,52 @@
+/* Global body styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* Anchor tags globally */
+a {
+  color: #0ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #06c;
+  text-shadow: 0 0 5px #0ff;
+}
+
+/* Buttons globally (optional defaults) */
+button {
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  box-shadow: 0 0 10px #0ff;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #000;
+}
+
+.badge-open {
+  background: #fef3c7;
+}
+
+.badge-closed {
+  background: #dcfce7;
+}

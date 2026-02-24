@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  color: #64748b;
+}
+
+.stat p {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.stat.danger {
+  border-left: 5px solid red;
+}

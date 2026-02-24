@@ -1,0 +1,88 @@
+/* Layout */
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #0f172a;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar a {
+  color: #cbd5f5;
+  text-decoration: none;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar a:hover {
+  background: #1e293b;
+  color: white;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.police-card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.police-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.police-btn {
+  background: #2563eb;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.police-btn:hover {
+  background: #1d4ed8;
+}
+
+.address-box {
+  background: #334155;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
