@@ -1,22 +1,37 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 1.0.0
+  description: AI Police Smart System API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication operations
+  - name: crime
+    description: Crime prediction and reports
+  - name: alerts
+    description: Emergency alerts
+  - name: fir
+    description: FIR management
+  - name: face
+    description: Facial recognition
+  - name: officers
+    description: Officer management
+  - name: cases
+    description: Case tracking
+  - name: chatbot
+    description: AI chatbot
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,7 +39,457 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  /crime/predict:
+    get:
+      operationId: predictCrime
+      tags: [crime]
+      summary: Get crime prediction heatmap data
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Crime prediction data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrimePredictionResponse"
+
+  /crime/stats:
+    get:
+      operationId: getCrimeStats
+      tags: [crime]
+      summary: Get crime statistics
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Crime statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrimeStatsResponse"
+
+  /report/create:
+    post:
+      operationId: createReport
+      tags: [crime]
+      summary: Create a crime report
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReportRequest"
+      responses:
+        "201":
+          description: Report created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+
+  /report/list:
+    get:
+      operationId: listReports
+      tags: [crime]
+      summary: List all crime reports
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, investigating, resolved, closed]
+        - name: limit
+          in: query
+          schema:
+            type: number
+        - name: offset
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: List of reports
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportListResponse"
+
+  /report/{id}:
+    get:
+      operationId: getReport
+      tags: [crime]
+      summary: Get report by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Report details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+    patch:
+      operationId: updateReport
+      tags: [crime]
+      summary: Update report status
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateReportRequest"
+      responses:
+        "200":
+          description: Report updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+
+  /alerts/send:
+    post:
+      operationId: sendAlert
+      tags: [alerts]
+      summary: Send emergency alert
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendAlertRequest"
+      responses:
+        "201":
+          description: Alert sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
+
+  /alerts/list:
+    get:
+      operationId: listAlerts
+      tags: [alerts]
+      summary: List all alerts
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: List of alerts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertListResponse"
+
+  /alerts/{id}/resolve:
+    patch:
+      operationId: resolveAlert
+      tags: [alerts]
+      summary: Resolve an alert
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Alert resolved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Alert"
+
+  /fir/generate:
+    post:
+      operationId: generateFir
+      tags: [fir]
+      summary: Generate FIR from text description
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateFirRequest"
+      responses:
+        "200":
+          description: Generated FIR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FirResponse"
+
+  /fir/list:
+    get:
+      operationId: listFirs
+      tags: [fir]
+      summary: List all FIRs
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: List of FIRs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FirListResponse"
+
+  /fir/{id}:
+    get:
+      operationId: getFir
+      tags: [fir]
+      summary: Get FIR by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: FIR details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fir"
+
+  /face/match:
+    post:
+      operationId: matchFace
+      tags: [face]
+      summary: Match a face against the criminal database
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FaceMatchRequest"
+      responses:
+        "200":
+          description: Face match result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FaceMatchResponse"
+
+  /officers:
+    get:
+      operationId: listOfficers
+      tags: [officers]
+      summary: List all officers
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: List of officers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OfficerListResponse"
+
+  /officers/activity:
+    get:
+      operationId: getOfficerActivity
+      tags: [officers]
+      summary: Get officer activity stats
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Officer activity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OfficerActivityResponse"
+
+  /cases:
+    get:
+      operationId: listCases
+      tags: [cases]
+      summary: List all cases
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: List of cases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CaseListResponse"
+
+  /cases/{id}:
+    get:
+      operationId: getCase
+      tags: [cases]
+      summary: Get case by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Case details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Case"
+
+  /chatbot/message:
+    post:
+      operationId: sendChatMessage
+      tags: [chatbot]
+      summary: Send a message to the AI chatbot
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatMessageRequest"
+      responses:
+        "200":
+          description: Chatbot response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatMessageResponse"
+
+  /patrol/routes:
+    get:
+      operationId: getPatrolRoutes
+      tags: [officers]
+      summary: Get optimized patrol routes
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Patrol routes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PatrolRoutesResponse"
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [cases]
+      summary: Get admin dashboard statistics
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStatsResponse"
+
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     HealthStatus:
       type: object
@@ -34,3 +499,747 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [admin, officer, citizen]
+        phone:
+          type: string
+      required:
+        - email
+        - password
+        - name
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - token
+        - user
+
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [admin, officer, citizen]
+        phone:
+          type: string
+        badgeNumber:
+          type: string
+        createdAt:
+          type: string
+      required:
+        - id
+        - email
+        - name
+        - role
+
+    CrimePredictionPoint:
+      type: object
+      properties:
+        lat:
+          type: number
+        lng:
+          type: number
+        intensity:
+          type: number
+        crimeType:
+          type: string
+        riskLevel:
+          type: string
+          enum: [low, medium, high, critical]
+        predictedTime:
+          type: string
+      required:
+        - lat
+        - lng
+        - intensity
+        - crimeType
+        - riskLevel
+
+    CrimePredictionResponse:
+      type: object
+      properties:
+        heatmapData:
+          type: array
+          items:
+            $ref: "#/components/schemas/CrimePredictionPoint"
+        totalZones:
+          type: number
+        highRiskZones:
+          type: number
+        modelAccuracy:
+          type: number
+      required:
+        - heatmapData
+        - totalZones
+        - highRiskZones
+        - modelAccuracy
+
+    CrimeStatsResponse:
+      type: object
+      properties:
+        totalCrimes:
+          type: number
+        resolvedCases:
+          type: number
+        pendingCases:
+          type: number
+        crimesByType:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              count:
+                type: number
+              percentage:
+                type: number
+            required:
+              - type
+              - count
+              - percentage
+        crimesByMonth:
+          type: array
+          items:
+            type: object
+            properties:
+              month:
+                type: string
+              count:
+                type: number
+            required:
+              - month
+              - count
+        recentTrend:
+          type: string
+          enum: [increasing, decreasing, stable]
+      required:
+        - totalCrimes
+        - resolvedCases
+        - pendingCases
+        - crimesByType
+        - crimesByMonth
+        - recentTrend
+
+    CreateReportRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        crimeType:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        anonymous:
+          type: boolean
+        imageUrl:
+          type: string
+        witnessName:
+          type: string
+        witnessPhone:
+          type: string
+      required:
+        - title
+        - description
+        - crimeType
+
+    UpdateReportRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, investigating, resolved, closed]
+        assignedOfficerId:
+          type: number
+        notes:
+          type: string
+
+    Report:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        crimeType:
+          type: string
+        status:
+          type: string
+          enum: [pending, investigating, resolved, closed]
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        anonymous:
+          type: boolean
+        reporterId:
+          type: number
+        assignedOfficerId:
+          type: number
+        imageUrl:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - title
+        - description
+        - crimeType
+        - status
+        - createdAt
+
+    ReportListResponse:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: "#/components/schemas/Report"
+        total:
+          type: number
+      required:
+        - reports
+        - total
+
+    SendAlertRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [panic, weapon, suspicious, accident, fire]
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        message:
+          type: string
+      required:
+        - type
+        - latitude
+        - longitude
+
+    Alert:
+      type: object
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+          enum: [panic, weapon, suspicious, accident, fire]
+        status:
+          type: string
+          enum: [active, dispatched, resolved]
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        message:
+          type: string
+        senderId:
+          type: number
+        senderName:
+          type: string
+        createdAt:
+          type: string
+        resolvedAt:
+          type: string
+      required:
+        - id
+        - type
+        - status
+        - latitude
+        - longitude
+        - createdAt
+
+    AlertListResponse:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Alert"
+        activeCount:
+          type: number
+      required:
+        - alerts
+        - activeCount
+
+    GenerateFirRequest:
+      type: object
+      properties:
+        description:
+          type: string
+        complainantName:
+          type: string
+        complainantPhone:
+          type: string
+        crimeType:
+          type: string
+        location:
+          type: string
+        dateOfIncident:
+          type: string
+      required:
+        - description
+        - complainantName
+        - crimeType
+
+    FirResponse:
+      type: object
+      properties:
+        fir:
+          $ref: "#/components/schemas/Fir"
+      required:
+        - fir
+
+    Fir:
+      type: object
+      properties:
+        id:
+          type: number
+        firNumber:
+          type: string
+        complainantName:
+          type: string
+        complainantPhone:
+          type: string
+        crimeType:
+          type: string
+        ipcSections:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        location:
+          type: string
+        dateOfIncident:
+          type: string
+        summary:
+          type: string
+        status:
+          type: string
+          enum: [draft, filed, under_investigation, closed]
+        assignedOfficerId:
+          type: number
+        createdAt:
+          type: string
+      required:
+        - id
+        - firNumber
+        - complainantName
+        - crimeType
+        - status
+        - createdAt
+
+    FirListResponse:
+      type: object
+      properties:
+        firs:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fir"
+        total:
+          type: number
+      required:
+        - firs
+        - total
+
+    FaceMatchRequest:
+      type: object
+      properties:
+        imageBase64:
+          type: string
+        searchType:
+          type: string
+          enum: [criminal, missing_person, all]
+      required:
+        - imageBase64
+
+    FaceMatchResult:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        age:
+          type: number
+        gender:
+          type: string
+        nationality:
+          type: string
+        criminalRecord:
+          type: string
+        lastKnownLocation:
+          type: string
+        confidence:
+          type: number
+        status:
+          type: string
+          enum: [wanted, cleared, missing]
+        photoUrl:
+          type: string
+      required:
+        - id
+        - name
+        - confidence
+        - status
+
+    FaceMatchResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/FaceMatchResult"
+        totalMatches:
+          type: number
+        processingTime:
+          type: number
+      required:
+        - matches
+        - totalMatches
+        - processingTime
+
+    Officer:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        email:
+          type: string
+        badgeNumber:
+          type: string
+        rank:
+          type: string
+        department:
+          type: string
+        status:
+          type: string
+          enum: [on_duty, off_duty, on_leave]
+        activeCases:
+          type: number
+        latitude:
+          type: number
+        longitude:
+          type: number
+        joinedDate:
+          type: string
+      required:
+        - id
+        - name
+        - badgeNumber
+        - rank
+        - status
+
+    OfficerListResponse:
+      type: object
+      properties:
+        officers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Officer"
+        total:
+          type: number
+        onDuty:
+          type: number
+      required:
+        - officers
+        - total
+        - onDuty
+
+    OfficerActivityResponse:
+      type: object
+      properties:
+        topOfficers:
+          type: array
+          items:
+            type: object
+            properties:
+              officerId:
+                type: number
+              officerName:
+                type: string
+              casesResolved:
+                type: number
+              casesAssigned:
+                type: number
+              responseTime:
+                type: number
+            required:
+              - officerId
+              - officerName
+              - casesResolved
+              - casesAssigned
+              - responseTime
+      required:
+        - topOfficers
+
+    Case:
+      type: object
+      properties:
+        id:
+          type: number
+        caseNumber:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        crimeType:
+          type: string
+        status:
+          type: string
+          enum: [open, investigating, closed, cold]
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        assignedOfficerId:
+          type: number
+        assignedOfficerName:
+          type: string
+        reportId:
+          type: number
+        firId:
+          type: number
+        evidence:
+          type: array
+          items:
+            type: string
+        suspects:
+          type: array
+          items:
+            type: string
+        witnesses:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - caseNumber
+        - title
+        - crimeType
+        - status
+        - priority
+        - createdAt
+
+    CaseListResponse:
+      type: object
+      properties:
+        cases:
+          type: array
+          items:
+            $ref: "#/components/schemas/Case"
+        total:
+          type: number
+      required:
+        - cases
+        - total
+
+    ChatMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        context:
+          type: string
+          enum: [legal, fir, emergency, general]
+      required:
+        - message
+
+    ChatMessageResponse:
+      type: object
+      properties:
+        reply:
+          type: string
+        suggestions:
+          type: array
+          items:
+            type: string
+        relatedSections:
+          type: array
+          items:
+            type: string
+      required:
+        - reply
+
+    PatrolRoute:
+      type: object
+      properties:
+        id:
+          type: number
+        officerId:
+          type: number
+        officerName:
+          type: string
+        startPoint:
+          type: object
+          properties:
+            lat:
+              type: number
+            lng:
+              type: number
+          required:
+            - lat
+            - lng
+        waypoints:
+          type: array
+          items:
+            type: object
+            properties:
+              lat:
+                type: number
+              lng:
+                type: number
+              priority:
+                type: string
+            required:
+              - lat
+              - lng
+        estimatedDuration:
+          type: number
+        coverageArea:
+          type: string
+        riskZones:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - officerId
+        - officerName
+        - startPoint
+        - waypoints
+        - estimatedDuration
+
+    PatrolRoutesResponse:
+      type: object
+      properties:
+        routes:
+          type: array
+          items:
+            $ref: "#/components/schemas/PatrolRoute"
+        totalOfficers:
+          type: number
+      required:
+        - routes
+        - totalOfficers
+
+    DashboardStatsResponse:
+      type: object
+      properties:
+        totalReports:
+          type: number
+        activeAlerts:
+          type: number
+        openCases:
+          type: number
+        officersOnDuty:
+          type: number
+        resolvedToday:
+          type: number
+        crimeRateChange:
+          type: number
+        responseTimeAvg:
+          type: number
+        pendingFirs:
+          type: number
+        recentActivity:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              type:
+                type: string
+              message:
+                type: string
+              timestamp:
+                type: string
+              severity:
+                type: string
+                enum: [info, warning, critical]
+            required:
+              - id
+              - type
+              - message
+              - timestamp
+              - severity
+      required:
+        - totalReports
+        - activeAlerts
+        - openCases
+        - officersOnDuty
+        - resolvedToday
+        - crimeRateChange
+        - responseTimeAvg
+        - pendingFirs
+        - recentActivity

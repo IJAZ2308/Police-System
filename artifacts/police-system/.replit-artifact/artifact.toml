@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "AI Police Smart System"
+version = "1.0.0"
+id = "artifacts/police-system"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 18842
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/police-system run dev"
+
+[services.env]
+PORT = "18842"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/police-system", "run", "build"]
+publicDir = "artifacts/police-system/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

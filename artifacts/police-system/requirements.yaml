@@ -1,0 +1,25 @@
+packages:
+  "framer-motion": "Animations and UI transitions for high-tech feel"
+  "recharts": "Dashboard charts and crime statistics visualization"
+  "react-leaflet": "Map integration for crime hotspots"
+  "leaflet": "Core map engine"
+  "@types/leaflet": "Types for leaflet map"
+  "date-fns": "Date formatting for reports and alerts"
+  "lucide-react": "Icons for UI"
+  "clsx": "Class merging utility for components"
+  "tailwind-merge": "Tailwind class conflict resolution"
+  "react-hook-form": "Form state management"
+  "@hookform/resolvers": "Zod integration for forms"
+
+images:
+  - path: "artifacts/police-system/public/images/logo.png"
+    description: "Futuristic high-tech police shield logo, geometric, neon cyan and deep blue on transparent background, minimal flat vector style"
+    aspect_ratio: "1:1"
+  - path: "artifacts/police-system/public/images/auth-bg.png"
+    description: "Dark military command center background, glowing holographic screens, digital map projections, cinematic lighting, deep navy and cyan tones"
+    aspect_ratio: "16:9"
+
+notes:
+  - "The app relies on local storage for JWT auth state."
+  - "Leaflet maps require standard OpenStreetMap tiles, styled with CSS filters for dark mode."
+  - "Since actual websockets might not be present, the UI uses polling or optimistic updates for real-time feel."
