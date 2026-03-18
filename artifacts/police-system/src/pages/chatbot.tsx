@@ -3,6 +3,7 @@ import { useChatbotMutation } from "@/hooks/use-api";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Bot, User, Send, Scale } from "lucide-react";
 import { cn } from "@/lib/utils";
 
