@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("admin@nexus.gov");
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("admin123");
   const [name, setName] = useState("");
   const { login, register } = useAuth();
   const { toast } = useToast();
