@@ -20,15 +20,36 @@ export default function AuthPage() {
       if (isLogin) {
         await login({ email, password });
       } else {
-        await register({ email, password, name, role: "officer" });
+        await register({ email, password, name, role: "citizen" });
       }
     } catch (err: any) {
+      const apiMessage =
+        err?.data?.message ||
+        err?.response?.data?.message ||
+        err?.body?.message ||
+        err?.message ||
+        "Request failed. Try again.";
       toast({
-        title: "Authentication Failed",
-        description: err.message || "Invalid credentials. Try again.",
+        title: isLogin ? "Authentication Failed" : "Registration Failed",
+        description: apiMessage,
         variant: "destructive"
       });
     }
+  };
+
+  const toggleMode = () => {
+    setIsLogin(prev => {
+      const next = !prev;
+      if (next) {
+        setEmail("admin@nexus.gov");
+        setPassword("admin123");
+      } else {
+        setEmail("");
+        setPassword("");
+        setName("");
+      }
+      return next;
+    });
   };
 
   return (
@@ -88,7 +109,7 @@ export default function AuthPage() {
         <div className="mt-6 text-center">
           <button 
             type="button" 
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={toggleMode}
             className="text-xs font-mono text-muted-foreground hover:text-primary uppercase tracking-wider"
           >
             {isLogin ? "No clearance? Register here" : "Already authorized? Login"}
